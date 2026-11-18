@@ -11,3 +11,6 @@ dist/
 
 # Arsip hasil versi pertama, disimpan di disk sebagai pembanding, tidak ikut git
 arsip-v1/
+
+# Log app FigCraft
+.figcraft-app.log
