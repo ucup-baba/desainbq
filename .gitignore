@@ -1,0 +1,13 @@
+# Lingkungan & cache
+.venv/
+__pycache__/
+*.pyc
+
+# Direktori kerja visual companion (brainstorming)
+.superpowers/
+
+# Keluaran build — dihasilkan ulang oleh build_kalender.py
+dist/
+
+# Arsip hasil versi pertama, disimpan di disk sebagai pembanding, tidak ikut git
+arsip-v1/
