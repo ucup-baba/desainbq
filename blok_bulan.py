@@ -12,9 +12,19 @@ from kalender_data import Bulan
 NAMA_HARI = ("MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB")
 
 
-def _teks(nama: str, isi: str, x: float, y: float, props: dict, induk: str | None) -> dict:
+def _teks(nama: str, isi: str, x: float, y: float, props: dict, induk: str | None,
+          lebar: float | None = None) -> dict:
+    """Satu layer teks.
+
+    `lebar` wajib diisi kalau props memakai textAlign center/right: di
+    FigCraft perataan bekerja di dalam kotak teks, dan tanpa lebar yang
+    pasti kotak itu menempel di x lalu tumbuh ke kanan — teksnya jadi
+    meleset dan menabrak elemen sebelahnya.
+    """
     params: dict = {"text": isi, "x": round(x, 3), "y": round(y, 3), "props": props,
                     "select": False}
+    if lebar is not None:
+        params["width"] = round(lebar, 3)
     if induk is not None:
         params["parent"] = induk
     return {"command": "text.create", "params": params, "as": nama}
@@ -43,14 +53,14 @@ def perintah_blok_bulan(bulan: Bulan, x: float, y: float,
     hasil.append(_teks("nama_bulan", bulan.nama, x + 7.0, y - 2.0,
                        {"fontFamily": tema.FONT_DISPLAY, "fontSize": tema.UKURAN["nama_bulan"],
                         "fill": p["ink"]}, induk))
-    hasil.append(_teks("rentang_hijriah", bulan.rentang_hijriah,
-                       x + tema.LEBAR_BULAN, y,
+    lebar_rentang = 70.0
+    x_rentang = x + tema.LEBAR_BULAN - lebar_rentang
+    hasil.append(_teks("rentang_hijriah", bulan.rentang_hijriah, x_rentang, y,
                        {"fontFamily": tema.FONT_TEKS, "fontSize": 2.4, "fill": p["ink"],
-                        "opacity": 0.8, "textAlign": "right"}, induk))
-    hasil.append(_teks("rentang_jawa", bulan.rentang_jawa,
-                       x + tema.LEBAR_BULAN, y + 3.4,
+                        "opacity": 0.8, "textAlign": "right"}, induk, lebar_rentang))
+    hasil.append(_teks("rentang_jawa", bulan.rentang_jawa, x_rentang, y + 3.4,
                        {"fontFamily": tema.FONT_TEKS, "fontSize": 2.4, "fill": p["ink"],
-                        "opacity": 0.8, "textAlign": "right"}, induk))
+                        "opacity": 0.8, "textAlign": "right"}, induk, lebar_rentang))
 
     y_garis = y + tema.TINGGI_KEPALA_BULAN - 1.0
     hasil.append(_bidang("garis_kepala", x, y_garis, tema.LEBAR_BULAN, 0.7,
@@ -60,11 +70,12 @@ def perintah_blok_bulan(bulan: Bulan, x: float, y: float,
     y_hari = y + tema.TINGGI_KEPALA_BULAN
     for kolom, nama in enumerate(NAMA_HARI):
         hasil.append(_teks(f"hari_{kolom}", nama,
-                           x + kolom * lebar_kolom + lebar_kolom / 2, y_hari,
+                           x + kolom * lebar_kolom, y_hari,
                            {"fontFamily": tema.FONT_TEKS, "fontStyle": "Bold",
                             "fontSize": tema.UKURAN["nama_hari"],
                             "fill": p["rust"] if kolom == 0 else p["teal"],
-                            "letterSpacing": "0.5px", "textAlign": "center"}, induk))
+                            "letterSpacing": "0.5px", "textAlign": "center"},
+                           induk, lebar_kolom))
 
     # --- kisi tanggal -----------------------------------------------------
     y_kisi = y_hari + tema.TINGGI_BARIS_HARI
@@ -82,19 +93,22 @@ def perintah_blok_bulan(bulan: Bulan, x: float, y: float,
 
         warna = p["rust"] if (kolom == 0 or hari.libur) else p["ink"]
         hasil.append(_teks(f"tgl_{hari.masehi}", str(hari.masehi),
-                           sel_x + lebar_kolom / 2, sel_y + 1.6,
+                           sel_x, sel_y + 1.6,
                            {"fontFamily": tema.FONT_TEKS, "fontStyle": "SemiBold",
                             "fontSize": tema.UKURAN["tanggal"], "fill": warna,
-                            "textAlign": "center", "features": {"tnum": True}}, induk))
+                            "textAlign": "center", "features": {"tnum": True}},
+                           induk, lebar_kolom))
         hasil.append(_teks(f"hij_{hari.masehi}", str(hari.hijriah_hari),
-                           sel_x + lebar_kolom - 2.2, sel_y + 1.6,
+                           sel_x, sel_y + 1.6,
                            {"fontFamily": tema.FONT_TEKS, "fontStyle": "SemiBold",
                             "fontSize": tema.UKURAN["hijriah"], "fill": p["teal"],
-                            "textAlign": "right", "features": {"tnum": True}}, induk))
+                            "textAlign": "right", "features": {"tnum": True}},
+                           induk, lebar_kolom - 1.8))
         hasil.append(_teks(f"jaw_{hari.masehi}", f"{hari.jawa_hari} {hari.pasaran}",
-                           sel_x + lebar_kolom / 2, sel_y + 11.5,
+                           sel_x, sel_y + 11.5,
                            {"fontFamily": tema.FONT_TEKS, "fontSize": tema.UKURAN["jawa"],
-                            "fill": p["teal"], "opacity": 0.85, "textAlign": "center"}, induk))
+                            "fill": p["teal"], "opacity": 0.85, "textAlign": "center"},
+                           induk, lebar_kolom))
 
     # --- keterangan hari libur -------------------------------------------
     keterangan = "  ·  ".join(f"{h.masehi} — {h.libur}" for h in bulan.hari if h.libur)
@@ -103,5 +117,5 @@ def perintah_blok_bulan(bulan: Bulan, x: float, y: float,
                          {"fill": p["ink"]}, induk))
     hasil.append(_teks("ket_libur", keterangan or " ", x, y_ket,
                        {"fontFamily": tema.FONT_TEKS, "fontSize": tema.UKURAN["ket_libur"],
-                        "fill": p["teal"]}, induk))
+                        "fill": p["teal"], "lineHeight": "130%"}, induk, tema.LEBAR_BULAN))
     return hasil

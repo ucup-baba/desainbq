@@ -59,10 +59,10 @@ def perintah_header(lembar: Lembar, x: float, y: float,
     hasil.append(_bidang("foto_utama", x_kanan, y, LEBAR_KANAN, TINGGI_UTAMA,
                          {"fill": p["mint"], "stroke": p["ink"], "strokeWeight": 0.7}, induk))
     hasil.append(_teks("label_foto_utama", "FOTO UTAMA KEGIATAN YAYASAN",
-                       x_kanan + LEBAR_KANAN / 2, y + TINGGI_UTAMA / 2,
+                       x_kanan, y + TINGGI_UTAMA / 2,
                        {"fontFamily": tema.FONT_TEKS, "fontStyle": "Bold", "fontSize": 2.8,
                         "fill": p["ink"], "textAlign": "center",
-                        "letterSpacing": "0.5px"}, induk))
+                        "letterSpacing": "0.5px"}, induk, LEBAR_KANAN))
 
     y_pendukung = y + TINGGI_UTAMA + 5.0
     for i in range(3):
@@ -72,8 +72,8 @@ def perintah_header(lembar: Lembar, x: float, y: float,
                              {"fill": p[_WARNA_SLOT[i]], "stroke": p["ink"],
                               "strokeWeight": 0.7}, induk))
         hasil.append(_teks(f"label_{nama}", f"FOTO {i + 1}",
-                           slot_x + LEBAR_PENDUKUNG / 2,
-                           y_pendukung + TINGGI_PENDUKUNG / 2,
+                           slot_x, y_pendukung + TINGGI_PENDUKUNG / 2,
                            {"fontFamily": tema.FONT_TEKS, "fontStyle": "Bold", "fontSize": 2.8,
-                            "fill": p["ink"], "textAlign": "center"}, induk))
+                            "fill": p["ink"], "textAlign": "center"},
+                           induk, LEBAR_PENDUKUNG))
     return hasil

@@ -51,11 +51,11 @@ def perintah_pita_sholat(bulan: tuple[Bulan, ...], x: float, y: float,
                             "fontSize": 3.0, "fill": p["teal"]}, induk))
         for k, nama in enumerate(KEPALA):
             hasil.append(_teks(f"kepala_{b.nomor}_{k}", nama,
-                               kolom_x + LEBAR_KOLOM_TGL + k * lebar_waktu + lebar_waktu / 2,
+                               kolom_x + LEBAR_KOLOM_TGL + k * lebar_waktu,
                                y_kepala,
                                {"fontFamily": tema.FONT_TEKS, "fontStyle": "Bold",
                                 "fontSize": 3.0, "fill": p["teal"],
-                                "textAlign": "center"}, induk))
+                                "textAlign": "center"}, induk, lebar_waktu))
 
         for j, r in enumerate(b.sholat):
             baris_y = y_baris0 + j * TINGGI_BARIS
@@ -66,12 +66,12 @@ def perintah_pita_sholat(bulan: tuple[Bulan, ...], x: float, y: float,
                                 "features": {"tnum": True}}, induk))
             for k, nilai in enumerate((r.subuh, r.dzuhur, r.ashar, r.maghrib, r.isya)):
                 hasil.append(_teks(f"waktu_{b.nomor}_{j}_{k}", nilai,
-                                   kolom_x + LEBAR_KOLOM_TGL + k * lebar_waktu + lebar_waktu / 2,
+                                   kolom_x + LEBAR_KOLOM_TGL + k * lebar_waktu,
                                    baris_y,
                                    {"fontFamily": tema.FONT_TEKS,
                                     "fontSize": tema.UKURAN["sholat"], "fill": p["ink"],
                                     "textAlign": "center",
-                                    "features": {"tnum": True}}, induk))
+                                    "features": {"tnum": True}}, induk, lebar_waktu))
 
     y_catatan = y_baris0 + 6 * TINGGI_BARIS + 3.0
     hasil.append(_teks("koreksi_wilayah", KOREKSI, x, y_catatan,
