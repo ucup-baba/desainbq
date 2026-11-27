@@ -15,11 +15,15 @@ oleh `scripts/pasang_font.sh`.
 
 Berkas lisensi OFL ikut diunduh ke folder yang sama dengan font-nya.
 
-## Foto
+## Foto & Ilustrasi Sketsa
 
-Foto kegiatan di `assets/foto/` adalah milik Yayasan Islam Baitul Qowwam dan
-dipakai atas izin pemilik. Tidak ada foto stok, ikon, atau ilustrasi dari
-produk pihak lain di proyek ini.
+- Ilustrasi sketsa cat air & tinta berlatar transparan di `assets/foto/*.png`
+  serta ornamen latar pojok kanan bawah di `assets/latar/pojok_kanan_bawah.png`
+  dibuat khusus (original AI-generated & diproses alpha transparan dengan
+  `scripts/proses_sketsa.py`) untuk Yayasan Islam Baitul Qowwam, tanpa mengambil
+  aset pihak ketiga.
+- Slot `assets/foto/` tetap dapat diganti kapan saja dengan foto dokumentasi
+  kegiatan resmi Yayasan Islam Baitul Qowwam (`.jpg`/`.jpeg` atau `.png`).
 
 ## Catatan
 

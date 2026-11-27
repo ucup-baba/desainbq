@@ -76,7 +76,7 @@ def perintah_lembar(lembar: Lembar) -> list[dict]:
 
     # Bidang kertas digambar sebagai layer paling bawah, bukan mengandalkan
     # page.setBackground: ekspor hanya menggambar layer (contentsOnly), jadi
-    # latar halaman tidak ikut dan hasilnya putih. Dilebihkan 5 mm ke segala
+    # latar halaman tidak ikut dan hasilnya putih. Dilebihkan 3 mm ke segala
     # arah supaya area bleed ikut tertutup warna kertas.
     hasil: list[dict] = [{
         "command": "node.create",
@@ -85,6 +85,17 @@ def perintah_lembar(lembar: Lembar) -> list[dict]:
                    "width": tema.LEBAR_HALAMAN + 6.0,
                    "height": tema.TINGGI_HALAMAN + 6.0,
                    "props": {"fill": tema.PALET["paper"], "name": "Kertas"},
+                   "select": False},
+    }, {
+        # Lapisan latar sketsa pojok kanan bawah: duduk tepat di atas kertas
+        # dan di bawah seluruh teks kalender/jadwal sholat. Kosong (tanpa isi)
+        # bila berkas latar tidak dipasang.
+        "command": "node.create",
+        "as": "latar_pojok",
+        "params": {"type": "rectangle", "x": 270.0, "y": 444.0,
+                   "width": 156.0, "height": 156.0,
+                   "props": {"fills": [], "strokes": [],
+                             "name": "Latar Pojok Kanan Bawah"},
                    "select": False},
     }]
     hasil += perintah_header(lembar, x0, y0)
@@ -137,27 +148,78 @@ def kirim_perintah(klien: KlienMcp, perintah: list[dict]) -> dict[str, int]:
     return peta
 
 
-def pasang_foto(klien: KlienMcp, dir_foto: Path, id_slot: dict[str, int]) -> list[str]:
-    """Pasang foto ke slot yang namanya cocok. Slot tanpa foto dibiarkan.
+def pasang_foto(
+    klien: KlienMcp,
+    dir_foto: Path,
+    id_slot: dict[str, int],
+    id_label: dict[str, int] | None = None,
+) -> list[str]:
+    """Pasang foto atau ilustrasi sketsa transparan ke slot yang namanya cocok.
 
     Kunci `id_slot` berbentuk `foto_utama_1`, `foto_2_3`, dan seterusnya:
-    nama slot diikuti nomor lembar. Nama berkas mengikuti kunci itu persis.
+    nama slot diikuti nomor lembar. Berkas `.png` diperlakukan sebagai ilustrasi
+    transparan (bingkai & warna placeholder dibersihkan, mode `fit` agar tidak
+    terpotong), sedangkan `.jpg`/`.jpeg` memakai mode `fill`. Label placeholder
+    otomatis dihapus begitu slot terisi.
     """
     terisi: list[str] = []
     if not dir_foto.is_dir():
         return terisi
     for kunci, id_node in id_slot.items():
-        for akhiran in (".jpg", ".jpeg", ".png"):
+        for akhiran in (".png", ".jpg", ".jpeg"):
             berkas = dir_foto / f"{kunci}{akhiran}"
             if not berkas.exists():
                 continue
+            adalah_sketsa = akhiran == ".png"
+            props_bersih: dict = {"fills": []}
+            if adalah_sketsa:
+                props_bersih["strokes"] = []
+            klien.panggil("set_properties", {
+                "ids": [id_node],
+                "props": props_bersih,
+            })
             klien.panggil("run_command", {
                 "command": "image.place",
-                "params": {"path": str(berkas), "target": id_node, "mode": "fill"},
+                "params": {
+                    "path": str(berkas),
+                    "target": id_node,
+                    "mode": "fit" if adalah_sketsa else "fill",
+                },
             })
+            if id_label and kunci in id_label:
+                klien.panggil("run_command", {
+                    "command": "edit.delete",
+                    "params": {"ids": [id_label[kunci]]},
+                })
             terisi.append(kunci)
             break
     return terisi
+
+
+def pasang_latar_pojok(
+    klien: KlienMcp,
+    berkas_latar: Path,
+    id_latar: dict[int, int],
+) -> list[int]:
+    """Pasang sketsa latar pojok kanan bawah ke setiap lembar yang ada."""
+    terpasang: list[int] = []
+    for nomor, id_node in id_latar.items():
+        khusus = berkas_latar.with_name(
+            f"{berkas_latar.stem}_{nomor}{berkas_latar.suffix}"
+        )
+        pakai = khusus if khusus.exists() else berkas_latar
+        if not pakai.exists():
+            continue
+        klien.panggil("set_properties", {
+            "ids": [id_node],
+            "props": {"fills": [], "strokes": []},
+        })
+        klien.panggil("run_command", {
+            "command": "image.place",
+            "params": {"path": str(pakai), "target": id_node, "mode": "fit"},
+        })
+        terpasang.append(nomor)
+    return terpasang
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -165,13 +227,17 @@ def main(argv: list[str] | None = None) -> int:
     uraian.add_argument("--port", type=int, default=40695)
     uraian.add_argument("--cli", type=Path, default=CLI_BAWAAN)
     uraian.add_argument("--foto-dir", type=Path, default=AKAR / "assets/foto")
+    uraian.add_argument(
+        "--latar-pojok", type=Path, default=AKAR / "assets/latar/pojok_kanan_bawah.png"
+    )
     uraian.add_argument("--keluar", type=Path, default=AKAR / "dist")
     uraian.add_argument("--lembar", type=int, action="append", choices=[1, 2, 3])
     arg = uraian.parse_args(argv)
 
     nomor_lembar = arg.lembar or [1, 2, 3]
     arg.keluar.mkdir(parents=True, exist_ok=True)
-    id_slot: dict[str, int] = {}
+    semua_terisi: list[str] = []
+    latar_terpasang: list[int] = []
 
     try:
         with KlienMcp(arg.cli, arg.port) as klien:
@@ -195,15 +261,22 @@ def main(argv: list[str] | None = None) -> int:
                 # Dipotong 200 supaya galat menunjuk bagian yang salah, dan
                 # supaya satu permintaan tidak melewati batas waktu app.
                 peta = kirim_perintah(klien, perintah_lembar(lembar))
-                # Tiap lembar punya empat slotnya sendiri, jadi id disimpan
-                # dengan nomor lembarnya; tanpa ini lembar terakhir menimpa
-                # yang lain dan foto hanya muncul di satu lembar.
+                slot_lembar: dict[str, int] = {}
+                label_lembar: dict[str, int] = {}
                 for nama_slot in SLOT_FOTO:
                     if nama_slot in peta:
-                        id_slot[f"{nama_slot}_{nomor}"] = peta[nama_slot]
+                        slot_lembar[f"{nama_slot}_{nomor}"] = peta[nama_slot]
+                    nama_label = f"label_{nama_slot}"
+                    if nama_label in peta:
+                        label_lembar[f"{nama_slot}_{nomor}"] = peta[nama_label]
+                semua_terisi += pasang_foto(klien, arg.foto_dir, slot_lembar, label_lembar)
+                if "latar_pojok" in peta:
+                    latar_terpasang += pasang_latar_pojok(
+                        klien, arg.latar_pojok, {nomor: peta["latar_pojok"]}
+                    )
 
-            terisi = pasang_foto(klien, arg.foto_dir, id_slot)
-            print(f"Foto terpasang: {', '.join(terisi) if terisi else 'belum ada'}")
+            print(f"Foto/ilustrasi terpasang: {', '.join(semua_terisi) if semua_terisi else 'belum ada'}")
+            print(f"Latar pojok terpasang di lembar: {latar_terpasang if latar_terpasang else 'belum ada'}")
 
             berkas = arg.keluar / "kalender-baitul-qowwam-2027.figcraft"
             klien.panggil("save_file", {"path": str(berkas)})

@@ -27,6 +27,15 @@ def test_kertas_menutupi_halaman_sampai_area_bleed():
     assert PERINTAH[0]["as"] == "kertas", "kertas harus layer paling bawah"
 
 
+def test_latar_pojok_berada_tepat_di_atas_kertas_dan_menyentuh_bleed_kanan_bawah():
+    assert PERINTAH[1]["as"] == "latar_pojok", "latar pojok harus di bawah seluruh teks"
+    latar = PERINTAH[1]["params"]
+    assert latar["x"] + latar["width"] >= tema.LEBAR_HALAMAN + 3.0
+    assert latar["y"] + latar["height"] >= tema.TINGGI_HALAMAN + 3.0
+    assert latar["props"]["fills"] == []
+    assert latar["props"]["strokes"] == []
+
+
 def test_semua_elemen_di_dalam_margin():
     # Kertas sengaja melewati margin: ia menutupi area bleed.
     for p in (q for q in PERINTAH if q["as"] != "kertas"):
