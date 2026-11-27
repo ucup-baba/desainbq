@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalender Dinding 2027 — Yayasan Islam Baitul Qowwam (DIY)</title>
+  <meta name="description" content="Pratinjau Kalender Dinding A2 2027 (3 lembar × 4 bulan) Yayasan Islam Baitul Qowwam D.I. Yogyakarta: Masehi, Hijriah 1448–1449 H, Jawa 1960–1961 + Pasaran, dan Jadwal Sholat WIB DIY." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #024959;
+      --ink-deep: #01333f;
+      --teal: #038c8c;
+      --mint: #6ec4c0;
+      --paper: #f2eeed;
+      --card: #ffffff;
+      --sun: #f9d83f;
+      --amber: #f29f05;
+      --rust: #a64f03;
+      --border: #d9d3d0;
+      --text-muted: #466168;
+      --radius: 14px;
+      --shadow: 0 10px 28px rgba(2, 73, 89, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--teal);
+    }
+
+    .container {
+      width: min(1220px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(2rem, 5vw, 3.6rem) 0 1.8rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.75rem;
+      align-items: end;
+    }
+
+    .kicker {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin: 0 0 0.4rem;
+    }
+
+    .hero-year {
+      font-family: "Caveat Brush", cursive;
+      font-size: clamp(3.2rem, 7vw, 5.2rem);
+      line-height: 0.92;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .hero-title {
+      font-family: "Patrick Hand", cursive;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.15;
+      margin: 0.35rem 0 0.5rem;
+      color: var(--ink);
+    }
+
+    .hero-desc {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 62ch;
+      font-size: 0.96rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.68rem 1.05rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.14s ease, background-color 0.14s ease, color 0.14s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--ink-deep);
+    }
+
+    .btn-accent {
+      background: var(--sun);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-accent:hover {
+      background: #f4cc1f;
+    }
+
+    .btn-ghost {
+      background: var(--card);
+      color: var(--ink);
+    }
+
+    .btn-ghost:hover {
+      background: #e7f3f2;
+    }
+
+    /* Section Headings */
+    section {
+      padding: 2.2rem 0;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 0.65rem;
+    }
+
+    .section-title {
+      font-family: "Caveat Brush", cursive;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      margin: 0;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .section-sub {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* Filter Tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab-btn {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-btn[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    /* Sheet Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .gallery.single {
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
+    }
+
+    .sheet-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sheet-card[hidden] {
+      display: none;
+    }
+
+    .sheet-thumb {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: var(--paper);
+      cursor: zoom-in;
+      overflow: hidden;
+      aspect-ratio: 1800 / 2529;
+    }
+
+    .sheet-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .sheet-thumb:hover img {
+      transform: scale(1.015);
+    }
+
+    .zoom-hint {
+      position: absolute;
+      right: 0.75rem;
+      bottom: 0.75rem;
+      background: rgba(2, 73, 89, 0.88);
+      color: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .sheet-meta {
+      padding: 1rem 1.05rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .sheet-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sheet-name {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #e6f4f3;
+      color: var(--teal);
+    }
+
+    .sheet-note {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .sheet-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.2rem;
+    }
+
+    .mini-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0.35rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--ink);
+      background: #faf8f7;
+    }
+
+    .mini-link:hover {
+      border-color: var(--teal);
+      background: #eef7f6;
+    }
+
+    /* Prompt Cards */
+    .prompts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .prompt-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.2rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .prompt-card.full {
+      grid-column: 1 / -1;
+      border-color: var(--teal);
+      background: linear-gradient(180deg, #ffffff 0%, #f5fbfb 100%);
+    }
+
+    .prompt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .prompt-title {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .prompt-desc {
+      margin: 0.2rem 0 0;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      padding: 0.48rem 0.85rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--ink);
+      background: var(--sun);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background: #f4cc1f;
+    }
+
+    .copy-btn.copied {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    pre.prompt-box {
+      margin: 0;
+      padding: 0.95rem 1rem;
+      border-radius: 10px;
+      background: #0d2b33;
+      color: #eef7f6;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+    }
+
+    /* Specs Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .spec-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+
+    .spec-box h3 {
+      margin: 0 0 0.45rem;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .spec-box p,
+    .spec-box li {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .spec-box ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    /* Native Lightbox Dialog */
+    dialog.lightbox {
+      width: min(96vw, 1180px);
+      max-height: 94vh;
+      padding: 0;
+      border: 0;
+      border-radius: 14px;
+      background: #0c2228;
+      color: #ffffff;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    dialog.lightbox::backdrop {
+      background: rgba(2, 27, 34, 0.78);
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #08191e;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 1rem;
+    }
+
+    .lightbox-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .lightbox-close {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.32rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .lightbox-body {
+      max-height: calc(94vh - 54px);
+      overflow: auto;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .lightbox-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      background: var(--paper);
+    }
+
+    footer {
+      border-top: 1.5px solid var(--border);
+      padding: 1.6rem 0 2.6rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .gallery,
+      .prompts-grid,
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="kicker">KALENDER DINDING A2 · 3 LEMBAR × 4 BULAN</p>
+        <h1 class="hero-year">2027</h1>
+        <p class="hero-title">Yayasan Islam Baitul Qowwam — D.I. Yogyakarta</p>
+        <p class="hero-desc">
+          Pratinjau kalender dinding 2027 dengan penanggalan <strong>Masehi</strong>,
+          <strong>Hijriah (1448–1449 H)</strong>, <strong>Jawa (1960–1961 + Pasaran)</strong>,
+          <strong>Jadwal Sholat WIB DIY</strong>, serta ilustrasi sketsa cat air transparan yang
+          dibangun langsung melalui <strong>FigCraft MCP</strong>.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#prompts">Salin Prompt untuk Teman</a>
+        <a class="btn btn-accent" href="https://github.com/ucup-baba/desainbq/releases/latest" target="_blank" rel="noopener">Unduh PDF &amp; .figcraft</a>
+        <a class="btn btn-ghost" href="https://github.com/ucup-baba/desainbq" target="_blank" rel="noopener">Buka Repo GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="pratinjau" aria-labelledby="heading-pratinjau">
+      <div class="section-head">
+        <h2 class="section-title" id="heading-pratinjau">Pratinjau 3 Lembar Kalender</h2>
+        <p class="section-sub">Klik gambar lembar mana saja untuk memperbesar detail tanggal &amp; jadwal sholat.</p>
+      </div>
+
+      <div class="tabs" role="group" aria-label="Filter lembar kalender">
+        <button type="button" class="tab-btn" data-filter="all" aria-pressed="true">Semua (3 Lembar)</button>
+        <button type="button" class="tab-btn" data-filter="1" aria-pressed="false">Lembar 1: Jan–Apr</button>
+        <button type="button" class="tab-btn" data-filter="2" aria-pressed="false">Lembar 2: Mei–Agu</button>
+        <button type="button" class="tab-btn" data-filter="3" aria-pressed="false">Lembar 3: Sep–Des</button>
+      </div>
+
+      <div class="gallery" id="gallery">
+        <article class="sheet-card" data-sheet="1">
+          <button type="button" class="sheet-thumb" data-zoom="preview/lembar-1.webp" data-title="Lembar 1 — Januari – April 2027">
+            <img src="preview/lembar-1.webp" width="1800" height="2529" alt="Pratinjau Kalender 2027 Lembar 1 Januari hingga April Yayasan Islam Baitul Qowwam" fetchpriority="high" />
+            <span class="zoom-hint">Klik untuk zoom</span>
+          </button>
+          <div class="sheet-meta">
+            <div class="sheet-title-row">
+              <h3 class="sheet-name">Lembar 1: Januari – April</h3>
+              <span class="pill">1 / 3</span>
+            </div>
+            <p class="sheet-note">Rajab – Dzulqadah 1448 H · Rejeb – Sela 1960 · Sketsa Masjid Joglo, Al-Qur'an, Lentera Ramadan &amp; Ketupat.</p>
+            <div class="sheet-links">
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/layar-lembar-1.pdf" target="_blank" rel="noopener">PDF Layar (RGB)</a>
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/cetak-lembar-1.pdf" target="_blank" rel="noopener">PDF Cetak (CMYK)</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="sheet-card" data-sheet="2">
+          <button type="button" class="sheet-thumb" data-zoom="preview/lembar-2.webp" data-title="Lembar 2 — Mei – Agustus 2027">
+            <img src="preview/lembar-2.webp" width="1800" height="2529" alt="Pratinjau Kalender 2027 Lembar 2 Mei hingga Agustus Yayasan Islam Baitul Qowwam" loading="lazy" />
+            <span class="zoom-hint">Klik untuk zoom</span>
+          </button>
+          <div class="sheet-meta">
+            <div class="sheet-title-row">
+              <h3 class="sheet-name">Lembar 2: Mei – Agustus</h3>
+              <span class="pill">2 / 3</span>
+            </div>
+            <p class="sheet-note">Dzulqadah 1448 – Rabiul Awal 1449 H · Sela 1960 – Mulud 1961 · Sketsa Pendopo Belajar, Buku Ilmu, Tajug &amp; Tugu Jogja.</p>
+            <div class="sheet-links">
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/layar-lembar-2.pdf" target="_blank" rel="noopener">PDF Layar (RGB)</a>
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/cetak-lembar-2.pdf" target="_blank" rel="noopener">PDF Cetak (CMYK)</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="sheet-card" data-sheet="3">
+          <button type="button" class="sheet-thumb" data-zoom="preview/lembar-3.webp" data-title="Lembar 3 — September – Desember 2027">
+            <img src="preview/lembar-3.webp" width="1800" height="2529" alt="Pratinjau Kalender 2027 Lembar 3 September hingga Desember Yayasan Islam Baitul Qowwam" loading="lazy" />
+            <span class="zoom-hint">Klik untuk zoom</span>
+          </button>
+          <div class="sheet-meta">
+            <div class="sheet-title-row">
+              <h3 class="sheet-name">Lembar 3: September – Desember</h3>
+              <span class="pill">3 / 3</span>
+            </div>
+            <p class="sheet-note">Rabiul Awal – Sya'ban 1449 H · Mulud – Ruwah 1961 · Sketsa Masjid &amp; Merapi, Melati Geometris, Poci Silaturahmi &amp; Lentera.</p>
+            <div class="sheet-links">
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/layar-lembar-3.pdf" target="_blank" rel="noopener">PDF Layar (RGB)</a>
+              <a class="mini-link" href="https://github.com/ucup-baba/desainbq/releases/download/v2027.1/cetak-lembar-3.pdf" target="_blank" rel="noopener">PDF Cetak (CMYK)</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="prompts" aria-labelledby="heading-prompts">
+      <div class="section-head">
+        <h2 class="section-title" id="heading-prompts">Prompt Siap Kirim ke Teman (Beda Komputer / Device)</h2>
+        <p class="section-sub">Cukup salin lalu tempel ke AI coding assistant (Antigravity, Claude Code, Cursor, Codex, dll.) di komputer teman Anda.</p>
+      </div>
+
+      <div class="prompts-grid">
+        <article class="prompt-card">
+          <div class="prompt-head">
+            <div>
+              <h3 class="prompt-title">1. Prompt Clone &amp; Siapkan Repo Kalender (`desainbq`)</h3>
+              <p class="prompt-desc">Untuk meng-clone proyek kalender, memasang 3 font wajib, dan memverifikasi data 365 hari.</p>
+            </div>
+            <button type="button" class="copy-btn" data-copy-target="prompt-clone">Salin Prompt</button>
+          </div>
+          <pre class="prompt-box" id="prompt-clone">Tolong bantu siapkan repositori desain kalender 2027 Yayasan Islam Baitul Qowwam di komputer lokal saya:
+
+1. Clone repositori https://github.com/ucup-baba/desainbq.git ke folder kerja lokal (misalnya `desainbq`).
+2. Cek apakah Python 3 dan `pytest` serta `Pillow` tersedia. Jika `pytest` atau `Pillow` belum ada, buatkan virtual environment `.venv` dan instal keduanya.
+3. Pasang 3 font wajib kalender (`Caveat Brush`, `Patrick Hand`, `Plus Jakarta Sans`, lisensi OFL-1.1):
+   - Jika sistem saya Linux/macOS, jalankan `./scripts/pasang_font.sh` lalu perbarui cache font.
+   - Jika sistem saya Windows, unduh ketiga file TTF dari URL yang tercantum di `scripts/pasang_font.sh` lalu bantu instruksikan/pasangkan ke font Windows.
+4. Jalankan tes paritas &amp; tata letak dengan `python3 -m pytest -q` dan pastikan seluruh tes lulus.
+5. Setelah siap, tampilkan ringkasan lokasi file penting (`build_kalender.py`, `tema.py`, `assets/foto/`, `assets/latar/`, dan cara mengganti alamat/kontak yayasan atau foto).</pre>
+        </article>
+
+        <article class="prompt-card">
+          <div class="prompt-head">
+            <div>
+              <h3 class="prompt-title">2. Prompt Pasang &amp; Jalankan FigCraft di Komputer Lokal</h3>
+              <p class="prompt-desc">Untuk menginstal/build aplikasi desktop FigCraft, membuka file `.figcraft`, dan rebuild lewat MCP.</p>
+            </div>
+            <button type="button" class="copy-btn" data-copy-target="prompt-figcraft">Salin Prompt</button>
+          </div>
+          <pre class="prompt-box" id="prompt-figcraft">Tolong bantu pasang dan jalankan aplikasi desktop FigCraft (`https://github.com/storytold/figcraft`) di komputer lokal saya untuk membuka dan mengedit proyek kalender di folder `desainbq`:
+
+1. Deteksi OS saya (Linux / macOS / Windows) dan cek apakah `figcraft` &amp; `figcraft-cli` sudah terpasang atau apakah Rust (`rustc >= 1.95` &amp; `cargo`) sudah ada.
+2. Pilih cara tercepat yang tersedia:
+   - Opsi A (tercepat): Cek rilis prebuilt terbaru di https://github.com/storytold/figcraft/releases yang cocok dengan OS/arsitektur saya, unduh, dan ekstrak/pasang.
+   - Opsi B (build dari source): Jika tidak ada prebuilt atau saya ingin build lokal, clone `https://github.com/storytold/figcraft.git` dan jalankan `cargo build --release -p figcraft -p figcraft-cli` (instal `rustup` dulu jika Rust belum ada).
+3. Untuk langsung melihat &amp; mengedit kalender di GUI FigCraft:
+   - Unduh file jadi `kalender-baitul-qowwam-2027.figcraft` dari https://github.com/ucup-baba/desainbq/releases/latest (jika folder `dist/` belum ada), lalu buka file tersebut di aplikasi FigCraft.
+4. Jika saya ingin rebuild otomatis dari skrip Python (`desainbq/build_kalender.py`):
+   - Jalankan FigCraft dengan kanal kontrol:
+     `figcraft --control 40695 --automation-read-root "&lt;path-desainbq&gt;" --automation-write-root "&lt;path-desainbq&gt;/dist"`
+   - Lalu jalankan `python3 build_kalender.py --port 40695 --cli "&lt;path-ke-figcraft-cli&gt;"` di folder `desainbq` hingga menghasilkan PDF cetak (CMYK), PDF layar (RGB), PNG pratinjau, dan `.figcraft` baru di `dist/`.</pre>
+        </article>
+
+        <article class="prompt-card full">
+          <div class="prompt-head">
+            <div>
+              <h3 class="prompt-title">3. Prompt Gabungan (1× Paste — Clone Repo + Jalankan FigCraft Sekaligus)</h3>
+              <p class="prompt-desc">Paling praktis untuk dikirim lewat WhatsApp/Telegram ke teman: satu prompt langsung beres dari nol sampai FigCraft terbuka.</p>
+            </div>
+            <button type="button" class="copy-btn" data-copy-target="prompt-combo">Salin Prompt Gabungan</button>
+          </div>
+          <pre class="prompt-box" id="prompt-combo">Tolong bantu saya menyiapkan dan membuka proyek desain Kalender Dinding 2027 Yayasan Islam Baitul Qowwam di komputer saya dari awal sampai siap edit di FigCraft:
+
+1. Clone repo desain: `git clone https://github.com/ucup-baba/desainbq.git` dan masuk ke foldernya.
+2. Pasang 3 font wajib (`Caveat Brush`, `Patrick Hand`, `Plus Jakarta Sans`) mengikuti `scripts/pasang_font.sh` sesuai OS saya, lalu jalankan `python3 -m pytest -q` untuk memastikan data kalender &amp; jadwal sholat valid.
+3. Siapkan aplikasi desktop FigCraft (`https://github.com/storytold/figcraft`) di komputer saya — gunakan rilis prebuilt dari GitHub Releases jika tersedia untuk OS saya, atau clone &amp; build `cargo build --release -p figcraft -p figcraft-cli` jika perlu.
+4. Jalankan FigCraft dengan `--control 40695 --automation-read-root "$PWD" --automation-write-root "$PWD/dist"`, lalu jalankan `python3 build_kalender.py --port 40695 --cli "&lt;path-ke-figcraft-cli&gt;"` agar seluruh 3 lembar kalender (termasuk ilustrasi sketsa transparan &amp; latar pojok kanan bawah) terbangun dan langsung tampil di jendela FigCraft untuk saya edit.</pre>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="heading-spek">
+      <div class="section-head">
+        <h2 class="section-title" id="heading-spek">Spesifikasi Teknis &amp; Cetak</h2>
+        <p class="section-sub">Siap naik cetak di percetakan offset maupun digital A2.</p>
+      </div>
+      <div class="specs-grid">
+        <div class="spec-box">
+          <h3>Ukuran &amp; Bleed</h3>
+          <ul>
+            <li>Ukuran jadi: <strong>A2 Portrait (420 × 594 mm)</strong></li>
+            <li>Ukuran PDF cetak: <strong>426 × 600 mm</strong> (bleed 3 mm keliling)</li>
+            <li>Profil warna cetak: <strong>CMYK murni</strong> (<code>cetak-lembar-{1,2,3}.pdf</code>)</li>
+          </ul>
+        </div>
+        <div class="spec-box">
+          <h3>Data Penanggalan &amp; Sholat</h3>
+          <ul>
+            <li>Masehi 2027 + Hari Libur Nasional &amp; Cuti Bersama (SKB 3 Menteri)</li>
+            <li>Hijriah 1448–1449 H &amp; Jawa 1960–1961 + Pasaran</li>
+            <li>Sholat WIB Kota Yogyakarta (Kemenag RI: Subuh 20°, Isya 18°, <em>ihtiyati</em> +2 menit, ringkasan 5 hari nilai paling akhir)</li>
+          </ul>
+        </div>
+        <div class="spec-box">
+          <h3>Sebelum Cetak Massal</h3>
+          <ul>
+            <li>Ganti teks sementara <code>Jl. [alamat]</code> &amp; <code>[telp/WA]</code> di <code>build_kalender.py</code> atau langsung di FigCraft.</li>
+            <li>Jika ingin mengganti ilustrasi sketsa dengan foto dokumentasi asli, taruh di <code>assets/foto/</code> lalu rebuild.</li>
+            <li>Selalu minta <em>proof cetak</em> warna teal pekat (<code>#024959</code>) sebelum cetak banyak.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <span>Kalender Dinding 2027 — Yayasan Islam Baitul Qowwam (D.I. Yogyakarta)</span>
+    <span>Dibangun dengan <a href="https://github.com/storytold/figcraft" target="_blank" rel="noopener">FigCraft</a> · Sumber di <a href="https://github.com/ucup-baba/desainbq" target="_blank" rel="noopener">github.com/ucup-baba/desainbq</a></span>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-title">
+    <div class="lightbox-bar">
+      <span class="lightbox-title" id="lightbox-title">Pratinjau Lembar</span>
+      <button type="button" class="lightbox-close" id="lightbox-close">Tutup (Esc)</button>
+    </div>
+    <div class="lightbox-body">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+  </dialog>
+
+  <div class="sr-only" role="status" aria-live="polite" id="copy-status"></div>
+
+  <script>
+    (() => {
+      const gallery = document.getElementById("gallery");
+      const cards = Array.from(document.querySelectorAll(".sheet-card"));
+      const tabBtns = Array.from(document.querySelectorAll(".tab-btn"));
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.filter;
+          tabBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          cards.forEach((card) => {
+            card.hidden = target !== "all" && card.dataset.sheet !== target;
+          });
+          gallery.classList.toggle("single", target !== "all");
+        });
+      });
+
+      // Native <dialog> lightbox with backdrop click dismiss
+      const dialog = document.getElementById("lightbox");
+      const dialogImg = document.getElementById("lightbox-img");
+      const dialogTitle = document.getElementById("lightbox-title");
+      const closeBtn = document.getElementById("lightbox-close");
+
+      document.querySelectorAll("[data-zoom]").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          dialogImg.src = trigger.dataset.zoom;
+          dialogImg.alt = trigger.dataset.title || "Pratinjau kalender";
+          dialogTitle.textContent = trigger.dataset.title || "Pratinjau Kalender";
+          if (typeof dialog.showModal === "function") {
+            dialog.showModal();
+          } else {
+            window.open(trigger.dataset.zoom, "_blank", "noopener");
+          }
+        });
+      });
+
+      closeBtn.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (ev) => {
+        if (ev.target === dialog) dialog.close();
+      });
+
+      // Copy prompt buttons with Clipboard API + fallback
+      const liveStatus = document.getElementById("copy-status");
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+
+      document.querySelectorAll("[data-copy-target]").forEach((btn) => {
+        const defaultLabel = btn.textContent;
+        btn.addEventListener("click", async () => {
+          const pre = document.getElementById(btn.dataset.copyTarget);
+          if (!pre) return;
+          try {
+            await copyText(pre.textContent.trim());
+            btn.textContent = "Tersalin!";
+            btn.classList.add("copied");
+            liveStatus.textContent = "Prompt berhasil disalin ke papan klip.";
+            window.setTimeout(() => {
+              btn.textContent = defaultLabel;
+              btn.classList.remove("copied");
+            }, 2200);
+          } catch {
+            btn.textContent = "Gagal salin — blok manual";
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

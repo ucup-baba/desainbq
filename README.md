@@ -3,6 +3,55 @@
 Tiga lembar A2 (42 × 59,4 cm), empat bulan per lembar, memuat tanggal Masehi,
 Hijriah dan Jawa, serta jadwal sholat WIB untuk D.I. Yogyakarta.
 
+- **Pratinjau Web (GitHub Pages):** https://ucup-baba.github.io/desainbq/
+- **Unduh PDF Cetak (CMYK), PDF Layar (RGB) & `.figcraft`:** https://github.com/ucup-baba/desainbq/releases/latest
+
+## Prompt Siap Kirim untuk Teman (Beda Komputer / Device)
+
+Jika ingin membagikan proyek ini ke teman di komputer lain agar dibantu oleh AI coding assistant (Antigravity, Claude Code, Cursor, Codex, dll.), cukup salin prompt di bawah ini:
+
+### 1. Prompt Clone & Siapkan Repo Kalender (`desainbq`)
+
+```text
+Tolong bantu siapkan repositori desain kalender 2027 Yayasan Islam Baitul Qowwam di komputer lokal saya:
+
+1. Clone repositori https://github.com/ucup-baba/desainbq.git ke folder kerja lokal (misalnya `desainbq`).
+2. Cek apakah Python 3 dan `pytest` serta `Pillow` tersedia. Jika `pytest` atau `Pillow` belum ada, buatkan virtual environment `.venv` dan instal keduanya.
+3. Pasang 3 font wajib kalender (`Caveat Brush`, `Patrick Hand`, `Plus Jakarta Sans`, lisensi OFL-1.1):
+   - Jika sistem saya Linux/macOS, jalankan `./scripts/pasang_font.sh` lalu perbarui cache font.
+   - Jika sistem saya Windows, unduh ketiga file TTF dari URL yang tercantum di `scripts/pasang_font.sh` lalu bantu instruksikan/pasangkan ke font Windows.
+4. Jalankan tes paritas & tata letak dengan `python3 -m pytest -q` dan pastikan seluruh tes lulus.
+5. Setelah siap, tampilkan ringkasan lokasi file penting (`build_kalender.py`, `tema.py`, `assets/foto/`, `assets/latar/`, dan cara mengganti alamat/kontak yayasan atau foto).
+```
+
+### 2. Prompt Pasang & Jalankan FigCraft di Komputer Lokal
+
+```text
+Tolong bantu pasang dan jalankan aplikasi desktop FigCraft (`https://github.com/storytold/figcraft`) di komputer lokal saya untuk membuka dan mengedit proyek kalender di folder `desainbq`:
+
+1. Deteksi OS saya (Linux / macOS / Windows) dan cek apakah `figcraft` & `figcraft-cli` sudah terpasang atau apakah Rust (`rustc >= 1.95` & `cargo`) sudah ada.
+2. Pilih cara tercepat yang tersedia:
+   - Opsi A (tercepat): Cek rilis prebuilt terbaru di https://github.com/storytold/figcraft/releases yang cocok dengan OS/arsitektur saya, unduh, dan ekstrak/pasang.
+   - Opsi B (build dari source): Jika tidak ada prebuilt atau saya ingin build lokal, clone `https://github.com/storytold/figcraft.git` dan jalankan `cargo build --release -p figcraft -p figcraft-cli` (instal `rustup` dulu jika Rust belum ada).
+3. Untuk langsung melihat & mengedit kalender di GUI FigCraft:
+   - Unduh file jadi `kalender-baitul-qowwam-2027.figcraft` dari https://github.com/ucup-baba/desainbq/releases/latest (jika folder `dist/` belum ada), lalu buka file tersebut di aplikasi FigCraft.
+4. Jika saya ingin rebuild otomatis dari skrip Python (`desainbq/build_kalender.py`):
+   - Jalankan FigCraft dengan kanal kontrol:
+     `figcraft --control 40695 --automation-read-root "<path-desainbq>" --automation-write-root "<path-desainbq>/dist"`
+   - Lalu jalankan `python3 build_kalender.py --port 40695 --cli "<path-ke-figcraft-cli>"` di folder `desainbq` hingga menghasilkan PDF cetak (CMYK), PDF layar (RGB), PNG pratinjau, dan `.figcraft` baru di `dist/`.
+```
+
+### 3. Prompt Gabungan (1× Paste — Clone Repo + Jalankan FigCraft)
+
+```text
+Tolong bantu saya menyiapkan dan membuka proyek desain Kalender Dinding 2027 Yayasan Islam Baitul Qowwam di komputer saya dari awal sampai siap edit di FigCraft:
+
+1. Clone repo desain: `git clone https://github.com/ucup-baba/desainbq.git` dan masuk ke foldernya.
+2. Pasang 3 font wajib (`Caveat Brush`, `Patrick Hand`, `Plus Jakarta Sans`) mengikuti `scripts/pasang_font.sh` sesuai OS saya, lalu jalankan `python3 -m pytest -q` untuk memastikan data kalender & jadwal sholat valid.
+3. Siapkan aplikasi desktop FigCraft (`https://github.com/storytold/figcraft`) di komputer saya — gunakan rilis prebuilt dari GitHub Releases jika tersedia untuk OS saya, atau clone & build `cargo build --release -p figcraft -p figcraft-cli` jika perlu.
+4. Jalankan FigCraft dengan `--control 40695 --automation-read-root "$PWD" --automation-write-root "$PWD/dist"`, lalu jalankan `python3 build_kalender.py --port 40695 --cli "<path-ke-figcraft-cli>"` agar seluruh 3 lembar kalender (termasuk ilustrasi sketsa transparan & latar pojok kanan bawah) terbangun dan langsung tampil di jendela FigCraft untuk saya edit.
+```
+
 ## Menyiapkan
 
 ```bash
